@@ -10,7 +10,7 @@ struct Node
 };
 
 //insert a new node in front of the list
-void push(struct Node** head, int node_data) {
+void push(struct Node** head, double node_data) {
    struct Node* newNode = new Node;
    newNode->data = node_data;
    newNode->next = (*head);
@@ -113,9 +113,9 @@ int main() {
 
   //EX 5
   std::cout << "\nWriting to file\n";
-  ofstream input ("input.txt");
-  writeToFile(head, input);
-  input.close();
+  ofstream output ("output.txt");
+  writeToFile(head, output);
+  output.close();
 
   return 0;
 }
