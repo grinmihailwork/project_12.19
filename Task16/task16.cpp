@@ -78,12 +78,13 @@ Node* find3(struct Node* list1, struct Node* list2) {
 
 Node* find4(struct Node* list1, struct Node* list2) {
   Node* tmp = NULL;
+  Node* copy = list1;
   while (list1 != NULL) {
     if (!findElement(tmp, list1->data) && !findElement(list2, list1->data)) push(&tmp, list1->data);
     list1 = list1->next;
   }
   while (list2 != NULL) {
-    if (!findElement(tmp, list2->data) && !findElement(list1, list2->data)) push(&tmp, list2->data);
+    if (!findElement(tmp, list2->data) && !findElement(copy, list2->data)) push(&tmp, list2->data);
     list2 = list2->next;
   }
   return tmp;
