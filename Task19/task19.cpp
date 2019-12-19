@@ -1,7 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <tgmath.h>
-#include <regex>
+#include <list>
 using namespace std;
 
 // A linked list node
@@ -130,21 +130,32 @@ int main() {
   beautyList(list1, 'y');
 
   //5
+  double l[100];
+  int itt = 0;
   string s;
   ifstream myfile ("input.txt");
   if (myfile.is_open()) {
     getline(myfile, s);
-    const regex r("(-?\\b\\d+)[xX]\\^(-?\\d+\\b)");
-    smatch sm;
-    int i = 1;
-    struct Node* listFile = NULL;
-    while (regex_search(s, sm, r)) {
-      append(&listFile, stod(sm[2]), stod(sm[1]));
-      i++;
-      s = sm.suffix().str();
+    string tmp = "";
+    for (char sss: s) {
+      if ((sss == 'x' || sss == '^' || sss == '+' || sss == '-') && tmp != "") {
+        l[itt] = stod(tmp);
+
+        itt++;
+        tmp = "";
+      }
+      if (!(sss == 'x' || sss == '^')) {
+        tmp += sss;
+      }
+
     }
+    Node* newList = NULL;
+    for (int i = itt; i >= 0; i-=2) {
+      push(&newList, l[i], l[i-1]);
+    }
+    beautyList(newList, 'x');
+
     myfile.close();
-    beautyList(listFile, 'y');
   }
 
 
