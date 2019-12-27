@@ -45,14 +45,14 @@ void writeToFile(struct Node *node, ofstream &file) {
   }
 }
 
-Node* find1(struct Node* list1, struct Node* list2) {
-  Node* tmp = NULL;
+double find1(struct Node* list1, struct Node* list2) {
+  double tmp = NULL;
   while (list1 != NULL) {
-    if (!findElement(tmp, list1->data)) push(&tmp, list1->data);
+    if (list1->data <= tmp) tmp = list1->data;
     list1 = list1->next;
   }
   while (list2 != NULL) {
-    if (!findElement(tmp, list2->data)) push(&tmp, list2->data);
+    if (list2->data <= tmp) tmp = list2->data;
     list2 = list2->next;
   }
   return tmp;
@@ -67,10 +67,10 @@ Node* find2(struct Node* list1, struct Node* list2) {
   return tmp;
 }
 
-Node* find3(struct Node* list1, struct Node* list2) {
-  Node* tmp = NULL;
+double find3(struct Node* list1, struct Node* list2) {
+  double tmp = NULL;
   while (list1 != NULL) {
-    if (!findElement(tmp, list1->data) && !findElement(list2, list1->data)) push(&tmp, list1->data);
+    if (!findElement(list2, list1->data) && (list1->data > tmp)) tmp = list1->data;
     list1 = list1->next;
   }
   return tmp;
@@ -100,7 +100,7 @@ int main() {
   push(&list1, 15.0f);
   push(&list1, 20.0f);
   push(&list1, 25.0f);
-  push(&list1, 30.0f);
+  push(&list1, -20.0f);
   push(&list1, 35.0f);
   push(&list1, 40.0f);
 
@@ -120,16 +120,14 @@ int main() {
 
   ofstream output ("output.txt");
   //TASK 1
-  displayList(find1(list1, list2));
-  writeToFile(find1(list1, list2), output);
+  cout << find1(list1, list2) << "\n";
 
   //TASK 2
   displayList(find2(list1, list2));
   writeToFile(find2(list1, list2), output);
 
   //TASK 3
-  displayList(find3(list1, list2));
-  writeToFile(find3(list1, list2), output);
+  cout << find3(list1, list2) << "\n";
 
   //TASK 4
   displayList(find4(list1, list2));
